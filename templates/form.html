@@ -1,0 +1,12 @@
+<form method='post'>
+
+<input type="text" name='repo'>
+<input type="submit" value="Submit">
+
+</form>
+
+{% if data: %}
+  <a href={{data.url}}>{{data.url}}</a>
+  <p>Hours: {{data.hours}}</p>
+  <p>Cost : ${{data.cost}}</p>
+{% endif %}
