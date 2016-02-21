@@ -2,7 +2,7 @@ import random
 import string
 import requests
 import secrets
-from flask import Flask, request, make_response, render_template
+from flask import Flask, request, make_response, render_template, send_from_directory
 
 ## Globals
 
@@ -57,10 +57,14 @@ def repo_stat(json):
 	total_hours = (total_additions * char_per_addition) / (wpm_comp * char_per_word * 60)
 	total_compensation = salary_per_hour * total_hours
 
-	data = {'url': repo_url, 'hours': total_hours,'cost': total_compensation}
+	data = {'hours': total_hours,'cost': total_compensation}
 	return data
 
 ## Routes
+
+@app.route('/assets/<path:path>')
+def send_assets(path):
+    return send_from_directory('templates', path)
 
 @app.route('/', methods=['GET'])
 def main_page():

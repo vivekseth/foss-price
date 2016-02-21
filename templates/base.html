@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>The Cost of Open Source</title>
+
+    <link rel="stylesheet" type="text/css" href="/assets/assets/css/font-awesome.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="/assets/bootstrap-social.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="/assets/reset.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="/assets/assets/css/bootstrap.css" media="screen"/>
+
+    <style>
+    	h1 {
+    		font-family:"Avenir Black";
+    		font-size: 50pt;
+    	}
+    	h2 {
+    		font-family:"Avenir Book";
+    		font-size: 24pt;
+    	}
+    	.title {
+    		color: white;
+    	}
+    	.subtitle {
+    		text-align: center;
+    		margin-top: 35px;
+    	}
+    	.topbar {
+    		background-color: #27ae60;
+    		text-align: center;
+    		padding-top: 180px;
+        padding-bottom: 40px;
+    	}
+    	.bottonbar {
+    		text-align: center;
+    	}
+    	body {
+
+    	}
+    	.repo_url {
+    		margin-top: 45px;
+    		height: 35px;
+    		width: 330px;
+    		font-size: 16px;
+    		font-family: monaco, monospace;
+    		padding-left: 10px;
+    	}
+    	.submit_button {
+    		position: absolute;
+    		margin-top: 45px;
+    		margin-left: 35px;
+    		height: 34px;
+    		width: 103px;
+    		border-width: 2px;
+    		background-color: #000;
+    		color: white;
+    		border: none;
+			outline: none;
+			font-family: monaco, monospace;
+			font-size: 16px;
+    	}
+    	.submit_button:active {
+    		background-color: #269655;
+    	}
+    	.underline {
+    		width: 454px;
+    		height: 4px;
+    		background-color: #ccc;
+    		margin: 0 auto;
+    		margin-top: 0px;
+    	}
+    	.price {
+    		margin-top: 110px;
+    	}
+      .btn-github {
+        width: 300px;
+        margin: 0 auto;
+        margin-top: 130px;
+      }
+    </style>
+
+    <!-- Google Analytics -->
+	<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-74087489-1', 'auto');
+	ga('send', 'pageview');
+	</script>
+
+  </head>
+  <body>
+  	<div class='topbar'>
+  		<h1 class='title'>The Cost of Open Source</h1>
+  	</div>
+  	<div class='bottonbar'>
+  		<h2 class='subtitle'>How much would it cost to build your favorite open source tool?</h2>
+
+      {% block content %}
+      {% endblock %}
+
+      <!-- Block Content-->
+        <!-- <a class="btn btn-block btn-social btn-github btn-lg">
+          <span class="fa fa-github"></span> Sign in with Github
+        </a> -->
+      <!-- END Block Content -->
+
+  		<!-- Block Content-->
+  			<!-- <form action='vivekseth.com'>
+  			<input type='text' name='repo_url' class='repo_url' />
+  			<button type="submit" value="Submit" class='submit_button'> Submit </button>
+  			<h1 class='price'>$ ?</h1>
+  			<div class='underline'></div>
+  			</form> -->
+  		<!-- END Block Content>
+  	</div>
+  </body>
+</html>

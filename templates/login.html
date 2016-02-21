@@ -1,1 +1,6 @@
-<a href="{{ auth_url }}"> Github Login </a>
+{% extends "base.html" %}
+{% block content %}
+<a href="{{ auth_url }}" class="btn btn-block btn-social btn-github btn-lg" >
+  <span class="fa fa-github"></span> Sign in with Github
+</a>
+{% endblock %}
