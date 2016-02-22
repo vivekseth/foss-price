@@ -21,6 +21,10 @@
     		font-size: 24pt;
         font-weight: lighter;
     	}
+      p {
+        font-size: 14pt;
+        font-weight: lighter;
+      }
     	.title {
     		color: white;
     	}
@@ -36,7 +40,7 @@
     		padding-top: 180px;
         padding-bottom: 40px;
     	}
-    	.bottonbar {
+    	.middle {
     		text-align: center;
     	}
     	.repo_url {
@@ -54,7 +58,7 @@
     		height: 34px;
     		width: 103px;
     		border-width: 2px;
-    		background-color: #000;
+    		background-color: rgb(51, 51, 51);
     		color: white;
     		border: none;
 			outline: none;
@@ -79,6 +83,47 @@
         margin: 0 auto;
         margin-top: 130px;
       }
+      .bottom {
+        margin-top: 55px;
+        background-color: rgb(51, 51, 51);
+        padding: 80px;
+        padding-bottom: 80px
+      }
+
+
+
+      .calc_table {
+        color: white;
+        font-weight: lighter;
+        margin: 0 auto;
+        margin-top: 50px;
+      }
+      th, td {
+        padding: 15px;
+        text-align: left;
+      }
+
+      table, th, td {
+        border: 1px solid white;
+        font-family: monaco, monospace;
+      }
+
+      .type_header, .number_header, .how_header {
+        font-weight: bold;
+      }
+      .bottom h2 {
+        color: white;
+      }
+      .bottom p {
+        color: white;
+        margin-top: 30px;
+      }
+      .bottom_wrapper {
+        margin: 0 auto;
+        padding: 0;
+        max-width: 800px;
+      }
+
     </style>
 
     <!-- Google Analytics -->
@@ -96,7 +141,7 @@
   	<div class='topbar'>
   		<h1 class='title'>The Cost of Open Source</h1>
   	</div>
-  	<div class='bottonbar'>
+  	<div class='middle'>
       <h2 class='subtitle'>
         If <a href='https://en.wikipedia.org/wiki/Free_and_open-source_software'>FOSS</a> didnt exist, how much would you have to pay developers to build a given open-source project?
       </h2>
@@ -105,5 +150,85 @@
       {% endblock %}
 
   	</div>
+    <div class='bottom' id='explanation'>
+      <div class='bottom_wrapper'>
+        <h2>
+          Calculation Methodology
+        </h2>
+        <p>
+          Estimates are created using a very simple hueristic that tries to determine total time spent on a project based on the total number of lines added to a repo across all commits (deleted lines are not counter). The total hours spent on a given github repo is multiplied by the average hourly pay for a software engineer to get the total cost of a project. 
+        </p>
+        <p>
+          The heuristic I'm using to convert lines added to hours spend is as follows: I assume on average each line added is about 40 characters. This is half the recommended line length of most style guides. <a href='https://en.wikipedia.org/wiki/Words_per_minute'>According to wikipedia</a> the average WPM for composition is 19 WPM and the average characters per word is 5. Using these numbers we can calculate the total hours spent on a project. 
+        </p>
+        <p>
+          I'm using the <a href="">github API</a> to count the total number of lines added to a github repo. Unfortunately it only provides data up to about 8 years in the past so some of the numbers reported should actually be higher. 
+        </p>
+      <div>
+
+
+      <table class='calc_table'>
+        <tr>
+          <th class='type_header'>
+            Name
+          </th>
+          <th class='number_header'>
+            Number
+          </th>
+          <th class='how_header'>
+            Reference
+          </th>
+        </tr>
+
+        <tr>
+          <th>
+            Characters per line added
+          </th>
+          <th>
+            {{numbers['char_per_addition']}}
+          </th>
+          <th>
+            (1/2) * 80, where 80 is the recommended line length. Very rough heuristic, I know.
+          </th>
+        </tr>
+
+        <tr>
+          <th>
+            Characters per word
+          </th>
+          <th>
+            {{numbers['char_per_word']}}
+          </th>
+          <th>
+            https://en.wikipedia.org/wiki/Words_per_minute
+          </th>
+        </tr>
+
+        <tr>
+          <th>
+            Words Per Minute (composition)
+          </th>
+          <th>
+            {{numbers['wpm_comp']}}
+          </th>
+          <th>
+            https://en.wikipedia.org/wiki/Words_per_minute
+          </th>
+        </tr>
+
+        <tr>
+          <th>
+            Compensation Per Hour
+          </th>
+          <th>
+            {{numbers['salary_per_hour']}}
+          </th>
+          <th>
+            https://www.glassdoor.com/Salaries/software-engineer-salary-SRCH_KO0,17.htm
+          </th>
+        </tr>
+
+      </table>
+    </div>
   </body>
 </html>

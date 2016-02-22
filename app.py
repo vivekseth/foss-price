@@ -7,6 +7,11 @@ from flask import Flask, request, make_response, render_template, send_from_dire
 
 ## Globals
 
+char_per_addition = 40 # (1/2) * 80 char per line
+char_per_word = 5 # https://en.wikipedia.org/wiki/Words_per_minute
+wpm_comp = 19 # https://en.wikipedia.org/wiki/Words_per_minute
+salary_per_hour = 45.187 # https://www.glassdoor.com/Salaries/software-engineer-salary-SRCH_KO0,17.htm
+
 app = Flask(__name__)
 
 locale.setlocale( locale.LC_ALL, '')
@@ -63,17 +68,21 @@ def api_request(token, endpoint):
 
 def repo_stat(json):
 	total_additions = reduce(lambda x, y: x+y, map(lambda x: x[1], json), 0)
-
-	char_per_addition = 40 # (1/2) * 80 char per line
-	char_per_word = 5 # https://en.wikipedia.org/wiki/Words_per_minute
-	wpm_comp = 19 # https://en.wikipedia.org/wiki/Words_per_minute
-	salary_per_hour = 45.187 # https://www.glassdoor.com/Salaries/software-engineer-salary-SRCH_KO0,17.htm
-
 	total_hours = (total_additions * char_per_addition) / (wpm_comp * char_per_word * 60)
 	total_compensation = salary_per_hour * total_hours
 
-	data = {'hours': total_hours,'cost': total_compensation}
+	data = {
+		'total_additions': total_additions,
+		'hours': total_hours,
+		'cost': total_compensation
+	}
 	return data
+
+def calculation_numbers():
+	return {'char_per_addition': char_per_addition,
+		'char_per_word': char_per_word,
+		'wpm_comp': wpm_comp,
+		'salary_per_hour': salary_per_hour}
 
 ## Routes
 
@@ -86,11 +95,11 @@ def main_page():
 	access_token = request.cookies.get('access_token')
 	if not access_token:
 		state = random_state()
-		resp = make_response(render_template('./login.html', auth_url=authorization_url(secrets.CLIENT_ID, secrets.REDIRECT_URI, secrets.SCOPE, state)))
+		resp = make_response(render_template('./login.html', auth_url=authorization_url(secrets.CLIENT_ID, secrets.REDIRECT_URI, secrets.SCOPE, state), numbers=calculation_numbers()))
 		resp.set_cookie('state', state)
 		return resp
 	else:
-		resp = make_response(render_template('./form.html', test_repo=random.choice(repo_list)))
+		resp = make_response(render_template('./form.html', test_repo=random.choice(repo_list), numbers=calculation_numbers()))
 		return resp
 
 @app.route('/', methods=['POST'])
@@ -105,7 +114,7 @@ def result():
 			return 'Please try again by refreshing this page.'
 		else:
 			data['cost'] = locale.currency(data['cost'], grouping=True )
-			return make_response(render_template('./form.html', data=data, repo_url=repo_url, test_repo=random.choice(repo_list)))
+			return make_response(render_template('./form.html', data=data, repo_url=repo_url, test_repo=random.choice(repo_list), numbers=calculation_numbers()))
 	except Exception, e:
 		print e
 		return 'error'
@@ -120,7 +129,7 @@ def index():
 	try:
 		j = r.json()
 		access_token = j['access_token']
-		resp = make_response(render_template('./form.html', test_repo=random.choice(repo_list)))
+		resp = make_response(render_template('./form.html', test_repo=random.choice(repo_list), numbers=calculation_numbers()))
 		resp.set_cookie('access_token', access_token)
 		return resp
 	except Exception, e:
@@ -132,4 +141,5 @@ def index():
 ## Main
 
 if __name__ == "__main__":
+	app.debug = True
 	app.run(host="0.0.0.0", port=5101)
