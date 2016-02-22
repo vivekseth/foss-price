@@ -83,45 +83,45 @@
         margin: 0 auto;
         margin-top: 130px;
       }
+      
       .bottom {
         margin-top: 55px;
         background-color: rgb(51, 51, 51);
-        padding: 80px;
+        padding-top: 20px;
         padding-bottom: 80px
-      }
-
-
-
-      .calc_table {
-        color: white;
-        font-weight: lighter;
-        margin: 0 auto;
-        margin-top: 50px;
-      }
-      th, td {
-        padding: 15px;
-        text-align: left;
-      }
-
-      table, th, td {
-        border: 1px solid white;
-        font-family: monaco, monospace;
-      }
-
-      .type_header, .number_header, .how_header {
-        font-weight: bold;
-      }
-      .bottom h2 {
-        color: white;
-      }
-      .bottom p {
-        color: white;
-        margin-top: 30px;
       }
       .bottom_wrapper {
         margin: 0 auto;
         padding: 0;
         max-width: 800px;
+      }
+      .bottom h2 {
+        color: white;
+        margin-bottom: 0px;
+        margin-top: 60px;
+      }
+      .bottom p {
+        color: white;
+        margin-top: 30px;
+      }
+      
+
+      .calc_table {
+        color: white;
+        font-family: monaco, monospace;
+        font-weight: lighter;
+        margin: 0 auto;
+        margin-top: 40px;
+      }
+      .calc_table th {
+        font-weight: bold;
+      }
+      .calc_table th, td {
+        padding: 15px;
+        text-align: left;
+      }
+      .calc_table, th, td {
+        border: 1px solid white;
       }
 
     </style>
@@ -164,71 +164,75 @@
         <p>
           I'm using the <a href="">github API</a> to count the total number of lines added to a github repo. Unfortunately it only provides data up to about 8 years in the past so some of the numbers reported should actually be higher. 
         </p>
+      
+        <h2>
+          Numbers Used
+        </h2>
+      
+
+        <table class='calc_table'>
+          <tr>
+            <th class='type_header'>
+              Name
+            </th>
+            <th class='number_header'>
+              Number
+            </th>
+            <th class='how_header'>
+              Reference
+            </th>
+          </tr>
+
+          <tr>
+            <td>
+              Characters per line added
+            </td>
+            <td>
+              {{numbers['char_per_addition']}}
+            </td>
+            <td>
+              (1/2) * 80, where 80 is the recommended line length. Very rough heuristic, I know.
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              Characters per word
+            </td>
+            <td>
+              {{numbers['char_per_word']}}
+            </td>
+            <td>
+              https://en.wikipedia.org/wiki/Words_per_minute
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              Words Per Minute (composition)
+            </td>
+            <td>
+              {{numbers['wpm_comp']}}
+            </td>
+            <td>
+              https://en.wikipedia.org/wiki/Words_per_minute
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              Compensation Per Hour
+            </td>
+            <td>
+              {{numbers['salary_per_hour']}}
+            </td>
+            <td>
+              https://www.glassdoor.com/Salaries/software-engineer-salary-SRCH_KO0,17.htm
+            </td>
+          </tr>
+
+        </table>
       <div>
-
-
-      <table class='calc_table'>
-        <tr>
-          <th class='type_header'>
-            Name
-          </th>
-          <th class='number_header'>
-            Number
-          </th>
-          <th class='how_header'>
-            Reference
-          </th>
-        </tr>
-
-        <tr>
-          <th>
-            Characters per line added
-          </th>
-          <th>
-            {{numbers['char_per_addition']}}
-          </th>
-          <th>
-            (1/2) * 80, where 80 is the recommended line length. Very rough heuristic, I know.
-          </th>
-        </tr>
-
-        <tr>
-          <th>
-            Characters per word
-          </th>
-          <th>
-            {{numbers['char_per_word']}}
-          </th>
-          <th>
-            https://en.wikipedia.org/wiki/Words_per_minute
-          </th>
-        </tr>
-
-        <tr>
-          <th>
-            Words Per Minute (composition)
-          </th>
-          <th>
-            {{numbers['wpm_comp']}}
-          </th>
-          <th>
-            https://en.wikipedia.org/wiki/Words_per_minute
-          </th>
-        </tr>
-
-        <tr>
-          <th>
-            Compensation Per Hour
-          </th>
-          <th>
-            {{numbers['salary_per_hour']}}
-          </th>
-          <th>
-            https://www.glassdoor.com/Salaries/software-engineer-salary-SRCH_KO0,17.htm
-          </th>
-        </tr>
-
-      </table>
     </div>
   </body>
 </html>
