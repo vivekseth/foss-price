@@ -120,7 +120,7 @@ def index():
 	try:
 		j = r.json()
 		access_token = j['access_token']
-		resp = make_response(render_template('./form.html'))
+		resp = make_response(render_template('./form.html', test_repo=random.choice(repo_list)))
 		resp.set_cookie('access_token', access_token)
 		return resp
 	except Exception, e:
@@ -132,5 +132,4 @@ def index():
 ## Main
 
 if __name__ == "__main__":
-	app.debug = True
-	app.run(host="0.0.0.0", port=5100)
+	app.run(host="0.0.0.0", port=5101)
