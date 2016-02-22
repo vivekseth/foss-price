@@ -72,7 +72,7 @@ def repo_stat(json):
 	total_hours = (total_additions * char_per_addition) / (wpm_comp * char_per_word * 60)
 	total_compensation = salary_per_hour * total_hours
 
-	data = {'hours': total_hours,'cost': locale.currency(total_compensation, grouping=True )}
+	data = {'hours': total_hours,'cost': total_compensation}
 	return data
 
 ## Routes
@@ -104,7 +104,8 @@ def result():
 		if data['cost'] < 1:
 			return 'Please try again by refreshing this page.'
 		else:
-			return make_response(render_template('./form.html', data=data))
+			data['cost'] = locale.currency(data['cost'], grouping=True )
+			return make_response(render_template('./form.html', data=data, repo_url=repo_url, test_repo=random.choice(repo_list)))
 	except Exception, e:
 		print e
 		return 'error'
