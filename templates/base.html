@@ -23,7 +23,9 @@
     	}
     	.subtitle {
     		text-align: center;
-    		margin-top: 35px;
+        max-width: 786px;
+        margin: 0 auto;
+        margin-top: 35px;
     	}
     	.topbar {
     		background-color: #27ae60;
@@ -95,7 +97,9 @@
   		<h1 class='title'>The Cost of Open Source</h1>
   	</div>
   	<div class='bottonbar'>
-  		<h2 class='subtitle'>How much would it cost to build your favorite open source tool?</h2>
+      <h2 class='subtitle'>
+        If <a href='https://en.wikipedia.org/wiki/Free_and_open-source_software'>FOSS</a> didnt exist, how much would you have to pay developers to build a given open-source project?
+      </h2>
 
       {% block content %}
       {% endblock %}

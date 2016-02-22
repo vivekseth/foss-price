@@ -2,11 +2,26 @@ import random
 import string
 import requests
 import secrets
+import locale
 from flask import Flask, request, make_response, render_template, send_from_directory
 
 ## Globals
 
 app = Flask(__name__)
+
+locale.setlocale( locale.LC_ALL, '')
+
+repo_list = ['https://github.com/ParsePlatform/parse-server',
+'https://github.com/mongodb/mongo',
+'https://github.com/mitsuhiko/flask',
+'https://github.com/mysql/mysql-server',
+'https://github.com/apple/swift',
+'https://github.com/django/django',
+'https://github.com/nodejs/node',
+'https://github.com/AFNetworking/AFNetworking',
+'https://github.com/Homebrew/homebrew',
+'https://github.com/git/git',
+'https://github.com/torvalds/linux']
 
 ## Helper Functions
 
@@ -57,7 +72,7 @@ def repo_stat(json):
 	total_hours = (total_additions * char_per_addition) / (wpm_comp * char_per_word * 60)
 	total_compensation = salary_per_hour * total_hours
 
-	data = {'hours': total_hours,'cost': total_compensation}
+	data = {'hours': total_hours,'cost': locale.currency(total_compensation, grouping=True )}
 	return data
 
 ## Routes
@@ -75,7 +90,7 @@ def main_page():
 		resp.set_cookie('state', state)
 		return resp
 	else:
-		resp = make_response(render_template('./form.html'))
+		resp = make_response(render_template('./form.html', test_repo=random.choice(repo_list)))
 		return resp
 
 @app.route('/', methods=['POST'])
