@@ -1,4 +1,5 @@
 secrets.py
 secrets.pyc 
 nohup.out
+*.pyc
 
